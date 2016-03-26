@@ -9,7 +9,7 @@ Sort by:
 <table>
   <tr><th>Name</th><th>Price</th><th>Quantity</th></tr>
   <tr ng-repeat="commodity in commodities | orderBy:orderProp">
-  <td>{{ commodity.name }}</td><td>{{ commodity.price }}</td><td>{{ commodity.quantity }}</td>
+  <td ng-click="goToCommodity(commodity)">{{ commodity.name }}</td><td>{{ commodity.price }}</td><td>{{ commodity.quantity }}</td>
   </tr>
 </table>
 </div>

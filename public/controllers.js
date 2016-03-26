@@ -1,18 +1,30 @@
 var marketplaceControllers = angular.module('marketplaceControllers', []);
 
-marketplaceControllers.controller('commoditiesListCtrl', ['$scope', '$http', 
-  function($scope, $http) {
+marketplaceControllers.controller('commoditiesListCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
     $http.get('api/commodities')
       .success(function(data) {
         $scope.commodities = data;
       });
 
       $scope.orderProp = 'price';
+
+      $scope.goToCommodity = function(commodity) {
+        $location.path('commodities/' + commodity.id);
+        $location.replace();
+      };
 }]);
 
-marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', 
-  function($scope) {
+marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
+    var currentPath = $location.path();
+    currentPath = currentPath.split('/');
+    $http.get('api/commodities/' + currentPath[currentPath.length - 1])
+      .success(function(data) {
+        $scope.lots = data;
+      });
 
+      $scope.orderProp = 'price';
   }]);
 
   marketplaceControllers.controller('sellerDetailCtrl', ['$scope', '$http', '$rootScope',

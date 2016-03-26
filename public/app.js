@@ -20,7 +20,9 @@ marketplaceApp.config(['$routeProvider',
       });
 
       return deferred.promise;
-    }
+    };
+
+    
     $routeProvider.
       when('/commodities', {
         templateUrl: 'commodities.html',

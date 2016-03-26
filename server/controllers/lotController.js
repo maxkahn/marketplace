@@ -14,6 +14,17 @@ module.exports = {
     });
   },
 
+  getAvailableLots: function(req, res, next) {
+    db.query('SELECT * FROM lots WHERE commodity = ' + req.params.commodity, function(error, results, fields) {
+      if (error) {
+        throw error;
+      }
+      else {
+        res.status(200).send(results);
+      }
+    });
+  },
+
   createLot: function(req, res, next) {
     var quantity = req.body.quantity;
     var price = req.body.price;

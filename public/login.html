@@ -2,18 +2,41 @@
   
       <form action="/login" method="post">
       <label for="name">Username:</label>
-      <input class="name" type="text" id="name"/>
+      <input name="username" type="text" id="name"/>
       <label for="password">Password:</label>
-      <input class="password" type="text" id="password"/>
+      <input name="password" type="text" id="password"/>
           <div class="mx-button">
-        <input type="radio" name="mx" id="button1" checked>
+        <input type="radio" name="mx" id="button1" checked value="Buyer">
         <label for="Buyer" unselectable>Buyer</label>
     </div>
               <div class="mx-button">
-        <input type="radio" name="mx" id="button1" checked>
+        <input type="radio" name="mx" id="button2" value="Seller">
         <label for="Seller" unselectable>Seller</label>
+    </div>
+    <div class="button">
+          <button type="submit">Log In.</button>
     </div>
 
     </form>
-    <button>Log In.</button>
+
+
+          <form action="/signup" method="post">
+      <label for="name">Username:</label>
+      <input name="username" type="text" id="newname"/>
+      <label for="password">Password:</label>
+      <input name="password" type="text" id="newpassword"/>
+          <div class="mx-button">
+        <input type="radio" name="mx" id="button3" checked value="Buyer">
+        <label for="Buyer" unselectable>Buyer</label>
+    </div>
+              <div class="mx-button">
+        <input type="radio" name="mx" id="button4" value="Seller">
+        <label for="Seller" unselectable>Seller</label>
+    </div>
+    <div class="button">
+          <button type="submit">Sign Up.</button>
+    </div>
+
+    </form>
+
 </div>
