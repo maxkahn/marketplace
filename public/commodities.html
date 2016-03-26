@@ -1,1 +1,15 @@
-<div ng-model="customLogin"></div>
+<div>
+Sort by:
+<select ng-model="orderProp">
+<option value="price">Average price</option>
+<option value="quantity">Total quantity</option>
+</select>
+
+
+<table>
+  <tr><th>Name</th><th>Price</th><th>Quantity</th></tr>
+  <tr ng-repeat="commodity in commodities | orderBy:orderProp">
+  <td>{{ commodity.name }}</td><td>{{ commodity.price }}</td><td>{{ commodity.quantity }}</td>
+  </tr>
+</table>
+</div>

@@ -1,1 +1,19 @@
-<div ng-model="customLogin"></div>
+<div>
+  
+      <form action="/login" method="post">
+      <label for="name">Username:</label>
+      <input class="name" type="text" id="name"/>
+      <label for="password">Password:</label>
+      <input class="password" type="text" id="password"/>
+          <div class="mx-button">
+        <input type="radio" name="mx" id="button1" checked>
+        <label for="Buyer" unselectable>Buyer</label>
+    </div>
+              <div class="mx-button">
+        <input type="radio" name="mx" id="button1" checked>
+        <label for="Seller" unselectable>Seller</label>
+    </div>
+
+    </form>
+    <button>Log In.</button>
+</div>
