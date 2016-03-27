@@ -19,9 +19,10 @@ module.exports = function(app, express) {
 
   app.post('/login', 
     passport.authenticate('local', {
-      successRedirect: '/',
       failureRedirect: '/login'
-    }));
+    }), function(req, res, next) {
+      res.redirect('/');
+    });
 
   app.get('/api/loggedin', function(req, res, next) {
     console.log('when I log in, req.user is: ', req.isAuthenticated());

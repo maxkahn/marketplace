@@ -22,10 +22,12 @@ marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$l
     $http.get('api/commodities/' + currentPath[currentPath.length - 1])
       .success(function(data) {
         $scope.lots = data;
+        console.log($scope.lots);
       });
 
       $scope.orderProp = 'price';
-      $scope.user = $rootScope.user;
+
+      $scope.commodity = currentPath[currentPath.length - 1];
   }]);
 
   marketplaceControllers.controller('sellerDetailCtrl', ['$scope', '$http', '$rootScope',

@@ -8,7 +8,7 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(name, done) {
+passport.deserializeUser(function(user, done) {
   done(null, user);
   // userController.findOne(name, function(user) {
   //   done(null, user);
@@ -16,9 +16,11 @@ passport.deserializeUser(function(name, done) {
 });
 
 passport.use(new LocalStrategy(function(username, password, done) {
-  userController.passwordMatches(username, password, function(results) {
+  process.nextTick(function() {
+      userController.passwordMatches(username, password, function(results) {
     if (results) {
       userController.findOne(username, function(user) {
+        console.log('when I use passport, user is: ', user);
         return done(null, user);
       });
     }
@@ -26,6 +28,8 @@ passport.use(new LocalStrategy(function(username, password, done) {
       return done(null, false, {message: "Incorrect username or password"});
     }
   });
+    });
+
 }));
 
 module.exports = passport;
