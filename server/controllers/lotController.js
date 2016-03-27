@@ -15,7 +15,8 @@ module.exports = {
   },
 
   getAvailableLots: function(req, res, next) {
-    db.query('SELECT * FROM lots WHERE commodity = ' + req.params.commodity, function(error, results, fields) {
+    console.log('I hit the available lots controller');
+    db.query('SELECT * FROM lots WHERE commodity = ' + req.params.id, function(error, results, fields) {
       if (error) {
         throw error;
       }

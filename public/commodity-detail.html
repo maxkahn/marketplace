@@ -1,1 +1,29 @@
-<div></div>
+<div>
+Sort by:
+<select ng-model="orderProp">
+<option value="price">Asking price</option>
+<option value="quantity">Quantity for sale</option>
+</select>
+
+
+<table>
+  <tr><th>Id</th><th>Price</th><th>Quantity</th></tr>
+  <tr ng-repeat="lot in lots | orderBy:orderProp">
+  <td>{{ lot.id }}</td><td>{{ lot.price }}</td><td>{{ lot.quantity }}</td>
+  </tr>
+</table>
+
+
+<form action="/bid" method="post">
+      <label for="price">Unit Price:</label>
+      <input name="price" type="number" id="price"/>
+      <label for="quantity">Quantity:</label>
+      <input name="quantity" type="number" id="quantity"/>
+      <input type="hidden" name="info" ng-model="user">
+    <div class="button">
+          <button type="submit">Place bid.</button>
+  </div>
+
+    </form>
+
+</div>

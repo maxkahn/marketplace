@@ -15,8 +15,8 @@ marketplaceControllers.controller('commoditiesListCtrl', ['$scope', '$http', '$l
       };
 }]);
 
-marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$location',
-  function($scope, $http, $location) {
+marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$location', '$rootScope',
+  function($scope, $http, $location, $rootScope) {
     var currentPath = $location.path();
     currentPath = currentPath.split('/');
     $http.get('api/commodities/' + currentPath[currentPath.length - 1])
@@ -25,6 +25,7 @@ marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$l
       });
 
       $scope.orderProp = 'price';
+      $scope.user = $rootScope.user;
   }]);
 
   marketplaceControllers.controller('sellerDetailCtrl', ['$scope', '$http', '$rootScope',
