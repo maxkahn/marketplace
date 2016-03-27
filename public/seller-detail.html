@@ -1,15 +1,28 @@
 <div>
 Sort by:
 <select ng-model="orderProp">
-<option value="price">Average price</option>
-<option value="quantity">Total quantity</option>
+<option value="price">Unit price</option>
+<option value="quantity">Quantity</option>
 </select>
 
 
 <table>
   <tr><th>Commodity</th><th>Price</th><th>Quantity</th></tr>
   <tr ng-repeat="lot in lots | orderBy:orderProp">
-  <td>{{ lot.commodity }}</td><td>{{ lot.price }}</td><td>{{ lot.quantity }}</td>
+  <td>{{ lot.name }}</td><td>{{ lot.price }}</td><td>{{ lot.quantity }}</td>
   </tr>
 </table>
+
+<form action="/api/seller" method="post">
+      <label for="commodity">Commodity:</label>
+      <input name="commodity" type="text" id="commodity"/>
+      <label for="price">Unit Price:</label>
+      <input name="price" type="number" id="price"/>
+      <label for="quantity">Quantity:</label>
+      <input name="quantity" type="number" id="quantity"/>
+    <div class="button">
+          <button type="submit">Add new lot.</button>
+  </div>
+
+    </form>
 </div>

@@ -3,25 +3,20 @@ var db = require('./../db/index.js');
 module.exports = {
 
   getAllLots: function(req, res, next) {
-    console.log(req.params.seller);
-    db.query('SELECT lots.id, lots.quantity, lots.price, commodities.name  FROM lots INNER JOIN commodities ON commodity = commodities.id WHERE seller = "' + req.params.seller + '"', function(error, results, fields) {
+    db.query('SELECT lots.id, lots.quantity, lots.price, commodities.name  FROM lots INNER JOIN commodities ON commodity = commodities.id WHERE seller = "' + req.session.passport.user[0].id + '"', function(error, results, fields) {
       if (error) {
         throw error;
-      }
-      else {
+      } else {
         res.status(201).send(results);
       }
     });
   },
 
   getAvailableLots: function(req, res, next) {
-    console.log('I hit the available lots controller');
-    console.log('from getAvailableLots, req.params.id is: ', req.params.id);
     db.query('SELECT * FROM lots WHERE commodity = ' + req.params.id, function(error, results, fields) {
       if (error) {
         throw error;
-      }
-      else {
+      } else {
         res.status(200).send(results);
       }
     });
@@ -30,24 +25,40 @@ module.exports = {
   createLot: function(req, res, next) {
     var quantity = req.body.quantity;
     var price = req.body.price;
-    var seller = req.params.seller;
+    var seller = req.session.passport.user[0].id;
     var commodityName = req.body.commodity;
-    db.query('SELECT id FROM commodities WHERE name = "' + commodityName + '"', function(error, results, fields) {
-      if (error) {
-        throw error;
-      }
-      else {
-        console.log(results);
-        var commodityId = results[0];
-        db.query('INSERT INTO lots (quantity, price, seller, commodity) VALUES (' + quantity, function(error, results, fields) {
-          if (error) {
-            throw error;
-          }
+    db.query('SELECT EXISTS(SELECT id FROM commodities WHERE name = "' + commodityName + '"))', function(error, results, fields) {
+        if (error) {
+          throw error;
+        } else if (results) {
+          db.query('SELECT id FROM commodities WHERE name = "' + commodityName + '"', function(error, results, fields) {
+            if (error) {
+              throw error;
+            } else {
+              console.log(results);
+              var commodityId = results[0];
+              db.query('INSERT INTO lots (quantity, price, seller, commodity) VALUES (' + quantity + ', ' + price + ', ' + seller + ', ' + commodityId + ')', function(error, results, fields) {
+                if (error) {
+                  throw error;
+                } else {
+                  //now to update the commodities table!
+                  var newAveragePrice = (totalQuantity * oldAveragePrice + quantity * price) /
+                    db.query('INSERT INTO commodities (name, quantity, price) values()', function(error, results, fields) {
+
+                    });
+                  res.status(201).send(results);
+                }
+              });
+            }
+          });
           else {
-            res.status(201).send(results);
+            db.query('INSERT INTO commodties (name, quantity, price) VALUES (' + quantity + ', ' + price + ', "' + commodityName +'")', function(error, results, fields) {
+              
+            })
           }
+
         })
-      }
-    })
-  }
+    }
+  })
+}
 };

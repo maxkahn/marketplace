@@ -15,8 +15,8 @@ marketplaceControllers.controller('commoditiesListCtrl', ['$scope', '$http', '$l
       };
 }]);
 
-marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$location', '$rootScope',
-  function($scope, $http, $location, $rootScope) {
+marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$location',
+  function($scope, $http, $location) {
     var currentPath = $location.path();
     currentPath = currentPath.split('/');
     $http.get('api/commodities/' + currentPath[currentPath.length - 1])
@@ -30,13 +30,14 @@ marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$l
       $scope.commodity = currentPath[currentPath.length - 1];
   }]);
 
-  marketplaceControllers.controller('sellerDetailCtrl', ['$scope', '$http', '$rootScope',
-    function($scope, $http, $rootScope) {
-      var seller = $rootScope.user;
-      $http.get('api/seller/:seller')
+  marketplaceControllers.controller('sellerDetailCtrl', ['$scope', '$http',
+    function($scope, $http) {
+      $http.get('api/seller/')
         .success(function(data) {
           $scope.lots = data;
         });
+
+        $scope.orderProp = 'price';
 
         $scope.post = function(newLot) {
           newLot.seller = $rootScope.user;
@@ -45,12 +46,7 @@ marketplaceControllers.controller('commodityDetailCtrl', ['$scope', '$http', '$l
               null;
             });
         };
-
-        //whenever I click one of these table entries, I want to modify the database
-        //by filling out a form with inventory and asking price
-        //that sends a put request
-
-        //I also want a new lot form, which corresponds to a POST request
+        
     }]);
 
   marketplaceControllers.controller('bidDetailCtrl', ['$scope', '$http', 

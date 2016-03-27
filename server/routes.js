@@ -35,6 +35,6 @@ module.exports = function(app, express) {
 
   app.post('/bid', bidController.createBid);
 
-  app.get('/api/seller/:seller', lotController.getAllLots);
-  app.post('/api/seller/:seller', lotController.createLot);
+  app.get('/api/seller/', lotController.getAllLots);
+  app.post('/api/seller/', lotController.createLot);
 };
